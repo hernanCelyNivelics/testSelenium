@@ -3,12 +3,15 @@ package pom;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
 public class Base {
 
     private WebDriver webDriver;
+    JavascriptExecutor js ;
     private static final String CHROME_DRIVER_URL = "src/test/resources/chromeDriver/chromedriver.exe";
     private static final String PROPERTY_DRIVER = "webdriver.chrome.driver";
 
@@ -20,6 +23,10 @@ public class Base {
         System.setProperty(PROPERTY_DRIVER, CHROME_DRIVER_URL);
         webDriver = new ChromeDriver();
         return webDriver;
+    }
+    public JavascriptExecutor initJs(){
+        js = (JavascriptExecutor) webDriver;
+        return js;
     }
 
     public WebElement findElement(By locator) {
@@ -81,8 +88,13 @@ public class Base {
         }
     }
 
-    public void useVerticalScrolBar() {
-        JavascriptExecutor js = (JavascriptExecutor) webDriver;
-        js.executeScript("window.scrollBy (0,250)", "");
+    public void useVerticalScrolBar(int num) {
+
+        initJs().executeScript("window.scrollBy(0,"+num+")", "");
+    }
+
+    public void selectCheckBox(String element){
+        System.out.println("document.getElementById('"+element+"').checked = true");
+        initJs().executeScript("document.getElementById('"+element+"').checked = true");
     }
 }
