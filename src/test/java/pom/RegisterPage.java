@@ -1,12 +1,13 @@
 package pom;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 
 import javax.swing.*;
 
-public class RegisterPage extends Base{
+public class RegisterPage extends Base {
 
     By buttonRegister = By.cssSelector("a.psf-login__link--register");
     By nameLocator = By.id("sktab1_first_name");
@@ -17,7 +18,7 @@ public class RegisterPage extends Base{
     By passwordLocator = By.id("password-register");
     By dateLocator = By.cssSelector("input#date");
     By countryBornLocator = By.id("sktab1_born");
-
+    By selectYear = By.xpath("/html/body/div[16]/div/div/select/option[1]");
     By dateYearLocator = By.cssSelector("select.ui-datepicker-year");
 
     public RegisterPage(WebDriver webDriver) {
@@ -27,29 +28,34 @@ public class RegisterPage extends Base{
     public void registerUser() throws InterruptedException {
         click(buttonRegister);
         Thread.sleep(2000);
-        if (isDisplayed(nameLocator)){
-            typeInFields("test",nameLocator);
-            typeInFields("test",lastNameLocator);
-            typeInFields("colombia",countryLocator);
-            typeInFields("sibate",cityLocator);
-            typeInFields("test@mail.com",emailLocator);
-            typeInFields("ct12345**",passwordLocator);
 
+        if (isDisplayed(nameLocator)) {
+            useVerticalScrolBar();
+            typeInFields("test", nameLocator);
+            typeInFields("test", lastNameLocator);
+            typeInFields("colombia", countryLocator);
+            typeInFields("sibate", cityLocator);
+            typeInFields("test@mail.com", emailLocator);
+            typeInFields("ct12345**", passwordLocator);
             verifyDate();
-            typeInFields("colombia",countryBornLocator);
+            typeInFields("colombia", countryBornLocator);
 
-        }else{
+        } else {
             System.out.println("No registered");
         }
     }
-    public void verifyDate(){
-        click(dateLocator);
-        if (isDisplayed(dateLocator)){
-            System.out.println(getText(dateLocator));
-        }else{
+
+    public void verifyDate() {
+        clickDate(findElement(dateLocator));
+        if (isDisplayed(dateYearLocator)) {
+            click(selectYear);
+            selectDay("20");
+        } else {
             System.out.println("date no click");
         }
     }
+
+
 //    public void registeredMessage(){
 //
 //    }

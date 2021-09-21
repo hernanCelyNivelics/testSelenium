@@ -15,6 +15,7 @@ public class SocialSkinTestJunit {
     public void setUp() throws Exception {
         registerPage = new RegisterPage(driver);
         driver = registerPage.chromeConnection();
+        driver.manage().window().maximize();
         registerPage.visit("https://stg.socialskin.com/comunidad/#");
     }
 

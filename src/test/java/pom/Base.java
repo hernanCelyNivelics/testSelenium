@@ -4,6 +4,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 
+import java.util.List;
+
 public class Base {
 
     private WebDriver webDriver;
@@ -22,6 +24,10 @@ public class Base {
 
     public WebElement findElement(By locator) {
         return webDriver.findElement(locator);
+    }
+
+    public List<WebElement> findElements(By locator) {
+        return webDriver.findElements(locator);
     }
 
     public String getText(WebElement element) {
@@ -56,8 +62,27 @@ public class Base {
         webDriver.get(url);
     }
 
-    public void clickDate(WebElement element){
+    public void clickDate(WebElement element) {
         Actions actions = new Actions(webDriver);
         actions.moveToElement(element).click().build().perform();
+    }
+
+    public void selectDay(String date) {
+        List<WebElement> rows, cols;
+        rows = findElements(By.tagName("tr"));
+        for (int i = 1; i < rows.size(); i++) {
+            cols = rows.get(i).findElements(By.tagName("td"));
+            for (int k = 0; k < cols.size(); k++) {
+                String caldt = cols.get(k).getText();
+                if (caldt.equals(date)) {
+                    cols.get(k).click();
+                }
+            }
+        }
+    }
+
+    public void useVerticalScrolBar() {
+        JavascriptExecutor js = (JavascriptExecutor) webDriver;
+        js.executeScript("window.scrollBy (0,250)", "");
     }
 }
