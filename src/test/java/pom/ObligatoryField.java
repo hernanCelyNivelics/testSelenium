@@ -3,9 +3,9 @@ package pom;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class InterestPage extends Base {
+public class ObligatoryField extends Base {
 
-    public InterestPage(WebDriver webDriver) {
+    public ObligatoryField(WebDriver webDriver) {
         super(webDriver);
     }
 

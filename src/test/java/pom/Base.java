@@ -4,14 +4,17 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 public class Base {
 
     private WebDriver webDriver;
-    JavascriptExecutor js ;
+    JavascriptExecutor js;
     private static final String CHROME_DRIVER_URL = "src/test/resources/chromeDriver/chromedriver.exe";
     private static final String PROPERTY_DRIVER = "webdriver.chrome.driver";
 
@@ -24,7 +27,8 @@ public class Base {
         webDriver = new ChromeDriver();
         return webDriver;
     }
-    public JavascriptExecutor initJs(){
+
+    public JavascriptExecutor initJs() {
         js = (JavascriptExecutor) webDriver;
         return js;
     }
@@ -79,22 +83,41 @@ public class Base {
         rows = findElements(By.tagName("tr"));
         for (int i = 1; i < rows.size(); i++) {
             cols = rows.get(i).findElements(By.tagName("td"));
-            for (int k = 0; k < cols.size(); k++) {
-                String caldt = cols.get(k).getText();
+            for (WebElement col : cols) {
+                String caldt = col.getText();
                 if (caldt.equals(date)) {
-                    cols.get(k).click();
+                    col.click();
                 }
             }
         }
     }
 
     public void useVerticalScrolBar(int num) {
-
-        initJs().executeScript("window.scrollBy(0,"+num+")", "");
+        initJs().executeScript("window.scrollBy(0," + num + ")", "");
     }
 
-    public void selectCheckBox(String element){
-        System.out.println("document.getElementById('"+element+"').checked = true");
-        initJs().executeScript("document.getElementById('"+element+"').checked = true");
+    public void scrollIntoView(WebElement element) {
+        JavascriptExecutor jse = (JavascriptExecutor) webDriver;
+        jse.executeScript("arguments[0].scrollIntoView()", element);
+    }
+
+    public void selectCheckBox(String element) {
+        initJs().executeScript("document.getElementById('" + element + "').checked = true");
+    }
+
+    public WebDriver driver() {
+        return this.webDriver;
+    }
+
+    public void ewait(int time) {
+        new WebDriverWait(webDriver, Duration.ofSeconds(time));
+    }
+
+    public void waitForElementToAppear(int timeWait, int pollingTime, By elementSearch) {
+        Wait<WebDriver> fwait = new FluentWait<>(webDriver)
+                .withTimeout(Duration.ofSeconds(timeWait))
+                .pollingEvery(Duration.ofSeconds(pollingTime))
+                .ignoring(NoSuchElementException.class);
+        fwait.until(ExpectedConditions.visibilityOfElementLocated(elementSearch));
     }
 }
