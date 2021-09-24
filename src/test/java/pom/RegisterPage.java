@@ -50,7 +50,7 @@ public class RegisterPage extends Base {
         super(webDriver);
     }
 
-    public void registerUser() {
+    public void registerUser() throws InterruptedException {
 
         click(buttonRegister);
         wait = new WebDriverWait(driver(), Duration.ofSeconds(2));
@@ -103,7 +103,7 @@ public class RegisterPage extends Base {
     }
 //test interest page
 
-    public void interestPage(){
+    public void interestPage() throws InterruptedException {
         ewait(2);
         if (isDisplayed(interestPageLocator)) {
             //useVerticalScrolBar(180);
@@ -131,12 +131,13 @@ public class RegisterPage extends Base {
         selectCheckBox(CITY_CATEGORY_LOCATOR);
     }
 
-    public void acceptTerms() {
+    public void acceptTerms() throws InterruptedException {
         selectCheckBox(CHECK_BOX_TERM);
         selectCheckBox(CHECK_BOX_P);
         selectCheckBox(CHECK_BOX_Z);
-        scrollIntoView(findElement(button_register));
-        ewait(2);
+        WebElement ele = findElement(button_register);
+        scrollIntoView(ele);
+        Thread.sleep(1000);
         click(button_register);
     }
 
