@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class VerifyEmailDuplicate extends Base {
+
     By emailLocator = By.id("email01");
     By passwordLocator = By.id("password-register");
     By nameLocator = By.id("sktab1_first_name");

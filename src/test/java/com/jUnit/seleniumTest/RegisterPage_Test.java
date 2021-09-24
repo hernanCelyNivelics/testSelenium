@@ -31,11 +31,9 @@ public class RegisterPage_Test {
     }
 
     @Test
-    public void testSocialSkinPage() throws InterruptedException {
+    public void RegisterPage_Test() throws InterruptedException {
         registerPageSucces.registerUser();
         System.out.println(registerPageSucces.registerMessage());
         System.out.println("Test Regristro completado");
     }
-
-
 }

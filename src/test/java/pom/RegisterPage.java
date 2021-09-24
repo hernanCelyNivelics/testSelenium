@@ -3,7 +3,6 @@ package pom;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.junit.Assert.*;
@@ -51,7 +50,7 @@ public class RegisterPage extends Base {
         super(webDriver);
     }
 
-    public void registerUser() throws InterruptedException {
+    public void registerUser() {
 
         click(buttonRegister);
         wait = new WebDriverWait(driver(), Duration.ofSeconds(2));
@@ -104,7 +103,7 @@ public class RegisterPage extends Base {
     }
 //test interest page
 
-    public void interestPage() throws InterruptedException {
+    public void interestPage(){
         ewait(2);
         if (isDisplayed(interestPageLocator)) {
             //useVerticalScrolBar(180);
@@ -132,12 +131,12 @@ public class RegisterPage extends Base {
         selectCheckBox(CITY_CATEGORY_LOCATOR);
     }
 
-    public void acceptTerms() throws InterruptedException {
+    public void acceptTerms() {
         selectCheckBox(CHECK_BOX_TERM);
         selectCheckBox(CHECK_BOX_P);
         selectCheckBox(CHECK_BOX_Z);
         scrollIntoView(findElement(button_register));
-        Thread.sleep(1000);
+        ewait(2);
         click(button_register);
     }
 
