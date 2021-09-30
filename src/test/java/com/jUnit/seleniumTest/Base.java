@@ -1,7 +1,8 @@
-package pom;
+package com.jUnit.seleniumTest;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -13,21 +14,38 @@ import java.util.List;
 
 public class Base {
 
+    //se instancia una objeto de tipo webdriver para asignar el tipo de driver
     private WebDriver webDriver;
     JavascriptExecutor js;
     private static final String CHROME_DRIVER_URL = "src/test/resources/chromeDriver/chromedriver.exe";
     private static final String PROPERTY_DRIVER = "webdriver.chrome.driver";
+    private static final String FIREFOX_PROPERTY_DRIVER = "webdriver.gecko.driver";
+    private static final String FIREFOX_DRIVER_URL = "src/test/resources/geckodriver.exe";
+    private static final String TESTNG_FIREFOX_DRIVER_URL = "D:\\Spring boot\\TestSeleniumJunit\\testSelenium\\src\\test\\resources\\geckodriver.exe";
 
     public Base(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
 
     public WebDriver chromeConnection() {
+        //se asigna el nombre del ejecutable y la ruta
         System.setProperty(PROPERTY_DRIVER, CHROME_DRIVER_URL);
+        //se asigna el driver de tipo chrome
         webDriver = new ChromeDriver();
         return webDriver;
     }
-
+    public WebDriver firefoxConnection(){
+        System.setProperty(FIREFOX_PROPERTY_DRIVER, FIREFOX_DRIVER_URL);
+        //se asigna el driver de tipo chrome
+        webDriver = new FirefoxDriver();
+        return webDriver;
+    }
+    public WebDriver testNgFirefoxConnection(){
+        System.setProperty(FIREFOX_PROPERTY_DRIVER, TESTNG_FIREFOX_DRIVER_URL);
+        //se asigna el driver de tipo chrome
+        webDriver = new FirefoxDriver();
+        return webDriver;
+    }
     public JavascriptExecutor initJs() {
         js = (JavascriptExecutor) webDriver;
         return js;
@@ -39,10 +57,6 @@ public class Base {
 
     public List<WebElement> findElements(By locator) {
         return webDriver.findElements(locator);
-    }
-
-    public String getText(WebElement element) {
-        return element.getText();
     }
 
     public String getText(By locator) {
@@ -119,5 +133,12 @@ public class Base {
                 .pollingEvery(Duration.ofSeconds(pollingTime))
                 .ignoring(NoSuchElementException.class);
         fwait.until(ExpectedConditions.visibilityOfElementLocated(elementSearch));
+    }
+    public void waitForElementToClickeable(int timeWait, int pollingTime, By elementSearch) {
+        Wait<WebDriver> fwait = new FluentWait<>(webDriver)
+                .withTimeout(Duration.ofSeconds(timeWait))
+                .pollingEvery(Duration.ofSeconds(pollingTime))
+                .ignoring(NoSuchElementException.class);
+        fwait.until(ExpectedConditions.elementToBeClickable(elementSearch));
     }
 }

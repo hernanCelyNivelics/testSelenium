@@ -1,9 +1,10 @@
-package pom;
+package pom.chrome;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import com.jUnit.seleniumTest.Base;
 
 import java.time.Duration;
 

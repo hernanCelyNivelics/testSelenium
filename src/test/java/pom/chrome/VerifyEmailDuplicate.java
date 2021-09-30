@@ -1,7 +1,8 @@
-package pom;
+package pom.chrome;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import com.jUnit.seleniumTest.Base;
 
 public class VerifyEmailDuplicate extends Base {
 

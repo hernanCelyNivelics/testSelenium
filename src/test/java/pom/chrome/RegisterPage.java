@@ -1,9 +1,10 @@
-package pom;
+package pom.chrome;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import com.jUnit.seleniumTest.Base;
 
 import static org.junit.Assert.*;
 
@@ -80,7 +81,6 @@ public class RegisterPage extends Base {
             }
         }
     }
-
 
     public boolean registerMessage() {
         if (isDisplayed(registerDone)) {

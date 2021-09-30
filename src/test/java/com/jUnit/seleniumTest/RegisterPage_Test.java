@@ -1,12 +1,11 @@
 package com.jUnit.seleniumTest;
 
+import Record.ScreenRecorder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import pom.RegisterPage;
-
-import static org.junit.Assert.*;
+import pom.chrome.RegisterPage;
 
 public class RegisterPage_Test {
 
@@ -31,9 +30,12 @@ public class RegisterPage_Test {
     }
 
     @Test
-    public void RegisterPage_Test() throws InterruptedException {
+    public void RegisterPage_Test() throws Exception {
+        ScreenRecorder scr = new ScreenRecorder();
+        scr.startRecording("test");
         registerPageSucces.registerUser();
         System.out.println(registerPageSucces.registerMessage());
         System.out.println("Test Regristro completado");
+        scr.stopRecording();
     }
 }
